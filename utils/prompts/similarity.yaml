@@ -1,0 +1,193 @@
+vicuna-7b-eval:
+  system: |-
+    You are a brilliant assistant.
+  user: |-
+    Given two responses, you are asked to evaluate the similarity between the two responses.
+    Your similarity evaluation will be integrated into a two-decimal score between 0 and 1 by strictly adhering to the following scoring rubric:
+    1. 0.00-0.10: Extremely low similarity. Responses have one of the following phenomena: (1) They DO NOT solve the same task, (2) They have obviously opposite semantic polarity or emotional polarity, (3) one of the response contains obvious incompleteness or duplicate text, thus having extremely low similarity in content quality.
+    2. 0.11-0.40: Relatively low similarity. Responses have one of the following phenomena: (1) The tasks they solved is nearly the same, (2) They have relatively low similarity in content quality (contains a few repetitive sentences), (3) They have different details or linguistic expression, (4) They have relatively low similarity in topic, or semantic polarity, or emotional polarity.
+    3. 0.41-0.60: Medium similarity, i.e. Responses solve exactly the same task, and are similar in topic, semantic polarity and emotional polarity. However, there are still some differences in linguistic expression and details.
+    4. 0.61-0.80: Relatively high similarity, i.e. Responses solve exactly the same task, and has same topic, semantic polarity and emotional polarity. There has relatively high similarities in content, linguistic expression and details.
+    5. 0.81-1.00: Extremely similar. Basically no difference can be found.
+    DO NOT VIOLATE ANY DETAIL IN SCORING RUBRIC.
+
+    You should select the most correct score range from the scoring rubric, finally you should provide a specific score based on your evaluation. You should describe your similarity evaluation and how you scored. Your explanation MUST be more than 100 words! 
+
+    You must only respond in the format as described below.
+    [response format]:
+    [
+      {{
+        "explanation": "The explanation of your evaluation, more than 100 words.",
+        "score": "The similarity score, a two-decimal."
+      }}
+    ]
+
+    DO NOT RESPOND WITH ANYTHING ELSE. ADDING ANY OTHER EXTRA NOTES THAT VIOLATE THE RESPONSE FORMAT IS BANNED. START YOUR RESPONSE WITH '['.
+    Now, please complete the following evaluation:
+    [response 1]:
+    {response_1}
+
+    [response 2]:
+    {response_2}
+
+vicuna-13b-eval:
+  system: |-
+    You are a brilliant assistant.
+  user: |-
+    Given two responses, you are asked to evaluate the similarity between the two responses.
+    You should first focus on whether the responses apply to the same task. Then, you should evaluate responses for similarity in (1) topic, (2) semantic polarity, (3)emotional polarity, (4) content quality (i.e. whether the content is incomplete or whether one of the responses is responding to some text repeatedly), (5) details, and (6) linguistic expression. Write a explanation carefully about your evaluation using ALL the metrics above [1]. DO NOT forget any metric in your explanation.
+
+    Next, Your similarity evaluation will be integrated into a two-decimal score between 0 and 1 by strictly adhering to the following scoring rubric:
+    1. 0.00-0.10: Extremely low similarity. Responses have one of the following phenomena: (1) They DO NOT solve the same task, have different topic, (2) They have obviously opposite semantic polarity or emotional polarity, (3) it has huge differences in content quality, one of the response contains obvious incompleteness or duplicate text.
+    2. 0.11-0.40: Relatively low similarity. Responses have one of the following phenomena: (1) The tasks they solved and their topic have few differences, (2) They have relatively low similarity in content quality (contains a few repetitive sentences), (3) They have completely different details or linguistic expression, (4) They have relatively low similarity in semantic polarity or emotional polarity.
+    3. 0.41-0.60: Medium similarity, i.e. Responses solve exactly the same task, and are similar in topic, semantic polarity and emotional polarity. However, there are still some differences in linguistic expression and details.
+    4. 0.61-0.80: Relatively high similarity, i.e. Responses solve exactly the same task, and has same topic, semantic polarity and emotional polarity. There has relatively high similarities in content, linguistic expression and details.
+    5. 0.81-1.00: Extremely similar. Basically no difference can be found.
+    DO NOT VIOLATE ANY DETAIL IN SCORING RUBRIC.
+
+    You should carefully compare the similarity evaluation with the scoring criteria and select the most correct score range from the scoring rubric, then you should provide a specific score based on your evaluation. You should also describe how you scored in your explanation [2]. Your explanation MUST be more than 100 words! 
+
+    You must only respond in the format as described below.
+    [response format]:
+    [
+      {{
+        "explanation": "The explanation of your evaluation using all metrics in [1] and scoring in [2], more than 100 words.",
+        "score": "The similarity score, a two-decimal."
+      }}
+    ]
+
+    DO NOT RESPOND WITH ANYTHING ELSE. ADDING ANY OTHER EXTRA NOTES THAT VIOLATE THE RESPONSE FORMAT IS BANNED. START YOUR RESPONSE WITH '['.
+    Now, please complete the following evaluation:
+    [response 1]:
+    {response_1}
+
+    [response 2]:
+    {response_2}
+  
+gpt-4-eval:
+  system: |-
+    You are a brilliant assistant.
+  user: |-
+    Given two responses, you are asked to evaluate the similarity between the two responses. Your evaluation should be based on the following metrics:
+    1. Task and Theme: Analyze whether this text pair addresses the same open-ended task and theme. If the task or theme is not entirely the same, analyze the similarities and differences.
+    2. Emotion and Semantics: Conduct an emotion and semantic analysis of this text pair, determining their similarity in emotional polarity (positive, negative, and neutral) and semantic polarity.
+    3. Content Quality: Analyze the similarity in content quality between this text pair, considering aspects such as incomplete content, nonsensical statements, lack of details, etc.
+    4. Details: Analyze the similarity in the details of the text content, such as the approach and steps in solving mathematical problems, plot details in stories, etc.
+    5. Language Expression: Analyze the similarity in language expression of this text pair, including language style, vocabulary, syntax, rhetorical devices, etc.
+    You should write a explanation carefully about your evaluation using ALL the metrics above [1]. DO NOT forget any metric in your explanation.
+
+    Next, Your similarity evaluation will be integrated into a two-decimal score between 0 and 1 by strictly adhering to the following scoring rubric:
+    1. 0.00-0.20: Extremely low similarity. It means responses met one of the following conditions: (1) The tasks they solved are not the same, or their theme are totally different, (2) They have opposite semantic polarity, (3) They have opposite emotional polarity, (4) There is a huge difference in content quality, i.e. one of the responses contains obvious incompleteness, or one of the responses is nonsense because it simply repeats some sentences.
+    2. 0.21-0.40: Relatively low similarity. It means responses met one of the following conditions: (1) The tasks they solved are same, their theme have few differences, but is nearly the same, (2) They have relatively low similarity in content quality due to one of the responses contains few repetitive sentences, (3) They have completely different details or linguistic expression, (4) They have relatively low similarity in semantic polarity or emotional polarity.
+    3. 0.41-0.60: Medium similarity. It means responses met all the following conditions: (1) Responses solve exactly the same task, (2) They are similar in theme, semantic polarity and emotional polarity, (3) There are still some differences in linguistic expression and details.
+    4. 0.61-0.80: Relatively high similarity. It means responses met all the following conditions: (1) Responses solve exactly the same task, and have exactly the same theme, semantic polarity and emotional polarity, (2) There are few differences in content, linguistic expression and details, resulting in relatively high similarity.
+    5. 0.81-1.00: Extremely similar. It means basically no difference can be found.
+    DO NOT VIOLATE ANY DETAIL IN SCORING RUBRIC. You should obey that if any of the conditions of 'extremely low similarity' and 'relatively low similarity' are met, the score segment must be selected.
+
+    You should carefully compare the similarity evaluation with the scoring criteria and select the most correct score range from the scoring rubric, then you should provide a specific score based on your evaluation. You should also describe why you selected this score range and how you scored in your explanation [2]. Your explanation MUST be more than 100 words! 
+
+    You must only respond with 2 components described below:
+    - explanation: "The explanation of your evaluation using all 5 metrics in [1] and scoring in [2], more than 100 words.",
+    - score: "The similarity score, a two-decimal score."
+    Output in JSON containing the explanation and score.
+
+    Now, please complete the following evaluation:
+    [response 1]:
+    {response_1}
+
+    [response 2]:
+    {response_2}
+
+gpt-4-analyst:
+  system: |-
+    You are an experienced text analyst.
+  user: |-
+    # Role
+    - You are an experienced text analyst.
+    - Your task is to assess a pair of texts provided by the user and write a professional and specific analysis of text similarity.
+    - You must use the fixed analysis metrics provided in "# Instructions," you should also use additional professional metrics you are familiar with for the analysis.
+
+    # Instructions
+    - Your analysis report must include the following metrics:
+      1. Task and Theme: Analyze whether this text pair addresses the same open-ended task and theme. If the task or theme is not entirely the same, analyze the similarities and differences.
+      2. Emotion and Semantics: Conduct an emotion and semantic analysis of this text pair, determining their similarity in emotional polarity (positive, negative, and neutral) and semantic polarity.
+      3. Content Quality: Analyze the similarity in content quality between this text pair, considering aspects such as incomplete content, nonsensical statements, lack of details, etc.
+      4. Details: Analyze the similarity in the details of the text content, such as the approach and steps in solving mathematical problems, plot details in stories, etc.
+      5. Language Expression: Analyze the similarity in language expression of this text pair, including language style, vocabulary, syntax, rhetorical devices, etc.
+    - You should add other professional text similarity analysis metrics to make your analysis more comprehensive.
+
+    # Format
+    - Your analysis report should analyze the metrics in "# Instructions" step by step.
+    - In each step, start by indicating the step number and metric name, e.g. "1. Task and Theme". Any additional metrics should be numbered starting from "6.".
+    - You should follow the standard format below:
+    {{
+      "1. Task and Theme": "The similarity analysis about Task and Theme, less than 50 words.",
+      "2. Emotion and Semantics": "The similarity analysis about Emotion and Semantics",
+      "3. Content Quality": "The similarity analysis about Content Quality",
+      "4. Details": "The similarity analysis about Details",
+      "5. Language Expression": "The similarity analysis about Language Expression",
+      ...
+    }}
+    - Output the above format in JSON.
+
+    # Text Pair
+    ## Text 1
+    {response_1}
+
+    ## Text 2
+    {response_2}
+
+    # Analysis
+    Now, start your concise analysis:
+  user-old: |-
+    # Role
+    - You are an experienced text analyst.
+    - Your task is to assess a pair of texts provided by the user and write a professional and specific analysis of text similarity.
+    - You must use the fixed analysis metrics provided in "# Instructions," you should also use additional professional metrics you are familiar with for the analysis.
+
+    # Instructions
+    - Your analysis report must include the following metrics:
+    1. Task and Theme: Analyze whether this text pair addresses the same open-ended task and theme. If the task or theme is not entirely the same, analyze the similarities and differences.
+    2. Emotion and Semantics: Conduct an emotion and semantic analysis of this text pair, determining their similarity in emotional polarity (positive, negative, and neutral) and semantic polarity.
+    3. Content Quality: Analyze the similarity in content quality between this text pair, considering aspects such as incomplete content, nonsensical statements, lack of details, etc.
+    4. Details: Analyze the similarity in the details of the text content, such as the approach and steps in solving mathematical problems, plot details in stories, etc.
+    5. Language Expression: Analyze the similarity in language expression of this text pair, including language style, vocabulary, syntax, rhetorical devices, etc.
+    - You should add other professional text similarity analysis metrics to make your analysis more comprehensive.
+
+    # Format
+    - Your analysis report should analyze the metrics in "# Instructions" step by step.
+    - In each step, start by indicating the step number and metric name, e.g. "1. Task and Theme:". Any additional metrics should be numbered starting from "6.".
+    - Your analysis report should contain all the 5 metrics in "# Instructions" (i.e. 5 steps). DO NOT response anything else.
+
+    # Text Pair
+    ## Text 1
+    {response_1}
+
+    ## Text 2
+    {response_2}
+
+    # Analysis
+    Now, start your concise (less than 200 words) analysis with "1. Task and Theme: ":
+
+llm-judge:
+  system: |-
+    You are an experienced text analyst.
+  user: |-
+    [System]
+    Please act as an impartial judge and evaluate the quality of the responses provided by two AI assistants to the user question displayed below. You should choose the assistant that follows the user's instructions and answers the user's question better. Your evaluation should consider factors such as the helpfulness, relevance, accuracy, depth, creativity, and level of detail of their responses. Begin your evaluation by comparing the two responses and provide a short explanation. Avoid any position biases and ensure that the order in which the responses were presented does not influence your decision. Do not allow the length of the responses to influence your evaluation. Do not favor certain names of the assistants. Be as objective as possible. Output "A" if assistant A is better, "B" if assistant B is better, and "C" for a tie. Output your final verdict by strictly following this format:
+    {{
+      'explanation': 'The short explanation of your evaluation.',
+      'winner': 'A, B or C.'
+    }}
+    Output this format in JSON.
+
+    [User Question]
+    {question}
+
+    [The Start of Assistant A's Answer]
+    {response_1}
+    [The End of Assistant A's Answer]
+
+    [The Start of Assistant B's Answer]
+    {response_2}
+    [The End of Assistant B's Answer]

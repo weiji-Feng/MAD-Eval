@@ -1,0 +1,109 @@
+Coding:
+  system: |-
+    You are a brilliant assistant.
+  user: |-
+    Your goal is to add some constraints to the python question in #Given Prompt# to make the rewritten prompt a bit more challenging. The rewritten prompt is used to evaluate the coding ability of a human student. The rewritten prompt must be reasonable and must be easily understood and responded by humans.
+    Your response should include 'new_prompt' and 'answer' in following format:
+    {{
+      "new_prompt": "The rewritten python prompt with 2 constraints setted",
+      "answer": "The python code and brief code explanation to the rewritten prompt. For code, 10 to 30 lines is recommended"
+    }}
+    Output in JSON.
+
+    The rewritten prompt should reverse the scenarios in the #Given Prompt#. You should add 2 of the following constraints to the rewritten prompt:
+    1. limits the number of code lines, e.g. 'Write a xxx lines python code'. 10 to 30 lines is recommended and preferred.
+    2. Requires high efficiency (time or space) of the code algorithm, e.g. 'Write a sufficiently efficient python code'.
+    3. Force the use of a certain python library, e.g. "Write a python code ... using the library 'numpy'".
+    4. limits the complexity of the code, i.e. "Write a python code ... easy to read for freshman".
+
+    the rewrited prompt can only add 10 to 20 words into the #Given Prompt#. You should try your best not to make the new prompt become verbose.
+
+    #Given Prompt#:
+    {instruction}
+
+    #Response#:
+    Now, choose 2 constraints and create a new prompt:
+
+Writing:
+  system: |-
+    You are a brilliant assistant.
+  user: |-
+    Your goal is to draw inspiration from the #Given Prompt# to create a brand-new prompt which is used to evaluate the creative writing capability of a human student.
+    The new prompt must be reasonable, unambiguous and must be understood and responded by humans.
+    Your response should include 'new_prompt' in following format:
+    {{
+      "new_prompt": "The new instruction about a writing task. Use the same sentence format as the #Given Prompt#. Try your best to follow the same difficulty level and the similar length.",
+    }}
+    Output the response in JSON.
+
+    The new instruction in #Created Prompt# should follow the same format as the #Given Prompt#.
+    You should design a more meaningful scenerio or topic that are totally DIFFERENT from the #Given Prompt# but has practical significance.
+    The LENGTH and difficulty level of the #Created Prompt# should be similar to that of the #Given Prompt#.
+
+    #Given Prompt#:
+    {instruction}
+
+    #Created Prompt#:
+    Now, output your response with 'new_prompt' in above format:
+  user-old: |-
+    Your goal is to draw inspiration from the #Given Prompt# to create a brand-new prompt with SAME FORMAT (i.e. same structure and number of sentences) which used to evaluate the writing ability of a human student. The new prompt must be reasonable and must be easily understood and responded by humans.
+    You should design a more rare scenerio or topic that are totally DIFFERENT from the #Given Prompt# but has practical significance.
+    The LENGTH and difficulty level of the #Created Prompt# should be extremely similar to that of the #Given Prompt#.
+    '#Given Prompt#', '#Created Prompt#', 'given prompt' and 'created prompt' are not allowed to appear in #Created Prompt#.
+
+    #Given Prompt#:
+    {instruction}
+
+    #Created Prompt#:
+    The new prompt is: 
+
+Reasoning:
+  system: |-
+    You are a brilliant assistant.
+  user: |-
+    Your goal is to draw inspiration from the question and the associated answer in #Given Prompt# to create a brand-new prompt which is used to evaluate the math reasoning capability of a primary school student.
+    The new prompt must be reasonable, unambiguous and must be understood and responded by humans.
+    Your response should include 'question' and 'answer' in following format:
+    {{
+      "question": "The new question for math reasoning. Try your best to follow the same difficulty level and the similar length.",
+      "answer": "The step-by-step answer of the new question."
+    }}
+    Output the response in JSON.
+
+    The new question and the step-by-step answer in #Created Prompt# should follow the same format as the #Given Prompt#.
+    The question in #Created Prompt# should focus on grade school math problem.
+    The LENGTH and difficulty level of the #Created Prompt# should be similar to that of the #Given Prompt#.
+
+    #Given Prompt#:
+    Question:
+    {instruction}
+    Answer:
+    {output}
+
+    #Created Prompt#:
+    Now, output your response with 'question' and 'answer' in above format:
+
+Understanding:
+  system: |-
+    You are a brilliant assistant.
+  user: |-
+    Your goal is to draw inspiration from the #Given Prompt# to create a brand-new prompt which used to evaluate the domain knowledge of a college human student.
+    The new prompt must be reasonable, unambiguous and must be understood and responded by humans.
+    Your response should include 'new_prompt' and 'answer' in following format:
+    {{
+      "new_prompt": "The new prompt for domain knowledge. Try your best to focus on subject basic knowledge and theorems. Start with the same first word as the #Given Prompt#.",
+      "answer": "The answer of the new prompt"
+    }}
+    Output the response in JSON.
+
+    The new #Created Prompt# should also belong to the similar domain as the #Given Prompt#.
+    The question in #Created Prompt# should focus on subject basic knowledge and theorems that can evaluate a college student.
+    Start the new prompt with the same first word (What or How) as the #Given Prompt#.
+    The LENGTH and difficulty level of the #Created Prompt# should be similar to that of the #Given Prompt#.
+
+    #Given Prompt#:
+    {instruction}
+
+    #Created Prompt#:
+    Again, you should ask meaningful subject basic knowledge and theorems.
+    Now, output your response with 'new_prompt' (start with the first word in #Given Prompt#) and 'answer' in above format:

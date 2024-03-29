@@ -1,0 +1,5 @@
+vllm==0.2.6
+openai==0.28.1
+google-generativeai
+langchain-google-genai==0.0.5
+bert-score
