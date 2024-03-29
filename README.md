@@ -1,6 +1,6 @@
 # Sample-Efficient Human Evaluation of LLMs via MAD Competition
 
-![](./figs/framework.pdf)
+![](./figs/framework.png)
 ## Quick Start
 ### Setup
 We use `python 3.10.9` in this project. You can create a virtual environment using the following command:
