@@ -1,8 +1,30 @@
 # Sample-Efficient Human Evaluation of LLMs via MAD Competition
+This is the official repository for xxx.
 
+## Table of contents
+- <a href='#instroduction'>Introduction</a>
+- <a href='#Quick-Start'>Quick Start</a>
+    - <a href='#setup'>Setup</a>
+    - <a href='#usage'>Usage</a>
+        - <a href='#step-1'>Step 1: Instruction Evolution</a>
+        - <a href='#step-2'>Step 2: Model Inference</a>
+        - <a href='#step-3'>Step 3: Similarity measurement</a>
+        - <a href='#step-4'>Step 4: MAD competition</a>
+        - <a href='#step-5'>Step 5: Human Preference Annotation</a>
+        - <a href='#step-6'>Step 6: Elo Ranking</a>
+
+
+## Introduction <a id='introduction'></a>
+The past years have witnessed a proliferation of large language models (LLMs). Yet, automated and unbiased evaluation of LLMs is challenging due to the inaccuracy of standard metrics in reflecting human preferences and the inefficiency in sampling informative and diverse test examples.
+While human evaluation remains the gold standard, it is expensive and time-consuming, especially when dealing with a large number of testing samples. 
+
+We introduce a labor-saving evaluation approach by an *automated*, *adaptive* and *sample-efficient* mechanism based on **MA**ximum **D**iscrepancy (MAD) competition to select testing samples. Our approach draws inspiration from the principle of "Model Falsification as Model Comparison", that is, to automatically identify a minimum set of samples that are most likely to serve as counterexamples for falsifying an LLM, where higher difficulty in falsification indicates the superiority of the LLM.
+
+MAD automatically selects a small set of informative and diverse instructions, each adapted to two LLMs, whose responses are subject to three-alternative forced choice by human subjects. The pairwise comparison results are then aggregated into a global ranking using the Elo rating system. 
 ![](./figs/framework.png)
-## Quick Start
-### Setup
+
+## Quick Start <a id='Quick-Start'></a>
+### Setup <a id="setup"></a>
 We use `python 3.10.9` in this project. You can create a virtual environment using the following command:
 ```shell
 conda create -n YOUR_ENV_NAME python=3.10.9 -y
@@ -12,7 +34,7 @@ Next, we need to install all Python libraries listed in `requirements.txt`. Make
 pip install -r requirements.txt
 ```
 
-### Usage
+### Usage <a id="usage"></a>
 Our method consists of the following 6 steps:
 1) Start from instruction seeds and generate new instructions through the instruction evolution method, resulting in an Instruction Pool.
 2) Select multiple models and collect their responses to the instruction pool.
@@ -23,7 +45,7 @@ Our method consists of the following 6 steps:
 
 If you want to skip steps 1 to 2 and explore using existing data, you can refer to our experimental process with `Chatbot Arena conversations` [data](https://huggingface.co/datasets/lmsys/chatbot_arena_conversations) and jump to <a href='#step3'>step 3</a>.
 
-#### step 1: Instruction Evolution
+#### Step 1: Instruction Evolution <a id="step-1"></a>
 You can run `instruction_evol.py` with the following command to generate instructions, taking the `Writing` scenario as an example:
 ```shell
 # The avaliable scenario: Understanding, Reasoning, Writing, Coding
@@ -54,7 +76,7 @@ bash ./scripts/instruction_evol.sh
 ```
 The data will be saved in the `./data/instruction` directory.
 
-#### Step 2: Model Inference
+#### Step 2: Model Inference <a id="step-2"></a>
 For API-type models, model inference can be performed by modifying the command in `vllm_api_infernece.sh`, taking the `Writing` scenario as an example:
 ```shell
 # The inference model, default model used in paper:
@@ -89,7 +111,7 @@ or
 bash ./scripts/vllm_inference.sh
 ```
 
-#### step 3: Similarity measurement
+#### Step 3: Similarity measurement <a id="step-3"></a>
 We employ three similarity metrics: GPT-4, text-embedding-ada-002 (OpenAI), and Bert-Score. We configure the relevant parameters for evaluating similarity using the following command:
 ```shell
 DEV_SET=Writing
@@ -121,13 +143,13 @@ CUDA_VISIBLE_DEVICES=0,1 python similarity_check.py \
 <a id="step3"></a>
 > For Chatbot_Arena, set `DEV_SET=chatbot_arena`.
 
-#### step 4: MAD competition
+#### Step 4: MAD competition <a id="step-4"></a>
 Once the scenario, MAD metric, and Top-K values are chosen, we can obtain the data with the greatest differences selected through the MAD competition.
 ```shell
 bash ./scripts/mad_competition.sh
 ```
 
-#### step 5: Human Preference Annotation
+#### Step 5: Human Preference Annotation <a id="step-5"></a>
 Before human preference annotation, the format of a data should be as follows:
 ```python
 {
@@ -203,5 +225,5 @@ json.dump(save_dict_list, save_f, indent=4, ensure_ascii=False)
 save_f.close()
 ```
 
-#### Elo Ranking
-Please refer to the `Elo_Ranking.ipynb`.
+#### Step 6: Elo Ranking <a id="step-6"></a>
+Please refer to the `Elo_Ranking.ipynb`. The `Elo_Ranking.ipynb` file provides sample code for calculating the Elo Ranking Score, inspired by the [strategy for calculating Elo Rating in Chatbot Arena](https://colab.research.google.com/drive/1RAWb22-PFNI-X1gPVzc927SGUdfr6nsR). In the calculation, we use the bootstrap method to obtain more stable rankings.
