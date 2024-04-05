@@ -21,6 +21,8 @@ While human evaluation remains the gold standard, it is expensive and time-consu
 We introduce a labor-saving evaluation approach by an *automated*, *adaptive* and *sample-efficient* mechanism based on **MA**ximum **D**iscrepancy (MAD) competition to select testing samples. Our approach draws inspiration from the principle of "Model Falsification as Model Comparison", that is, to automatically identify a minimum set of samples that are most likely to serve as counterexamples for falsifying an LLM, where higher difficulty in falsification indicates the superiority of the LLM.
 
 MAD automatically selects a small set of informative and diverse instructions, each adapted to two LLMs, whose responses are subject to three-alternative forced choice by human subjects. The pairwise comparison results are then aggregated into a global ranking using the Elo rating system. 
+
+
 ![](./figs/framework.png)
 
 ## Quick Start <a id='Quick-Start'></a>
