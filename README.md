@@ -1,5 +1,6 @@
 # Sample-Efficient Human Evaluation of LLMs via MAD Competition
-This is the official repository for xxx.
+This is the official repository for our paper: [[2404.08008] Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition (arxiv.org)](https://arxiv.org/abs/2404.08008).
+
 
 ## Table of contents
 - <a href='#instroduction'>Introduction</a>
