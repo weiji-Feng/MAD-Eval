@@ -21,7 +21,7 @@ class OpenAIChat():
             }
         if "gpt" in model_name or 'embedding' in model_name:
             openai.api_key = os.environ['OPENAI_API_KEY']
-            openai.api_base = "https://api.ai-gaochao.cn/v1"
+            openai.api_base = os.environ['OPENAI_API_BASE']
         else:
             openai.api_key = "EMPTY"
             openai.api_base = "http://127.0.0.1:8333/v1"
