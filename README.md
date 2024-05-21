@@ -230,3 +230,16 @@ save_f.close()
 
 #### Step 6: Elo Ranking <a id="step-6"></a>
 Please refer to the `Elo_Ranking.ipynb`. The `Elo_Ranking.ipynb` file provides sample code for calculating the Elo Ranking Score, inspired by the [strategy for calculating Elo Rating in Chatbot Arena](https://colab.research.google.com/drive/1RAWb22-PFNI-X1gPVzc927SGUdfr6nsR). In the calculation, we use the bootstrap method to obtain more stable rankings.
+
+## Citation
+Please cite the repo or the paper if they are helpful to you.
+```
+@misc{feng2024sampleefficient,
+      title={Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition}, 
+      author={Kehua Feng and Keyan Ding and Kede Ma and Zhihua Wang and Qiang Zhang and Huajun Chen},
+      year={2024},
+      eprint={2404.08008},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
