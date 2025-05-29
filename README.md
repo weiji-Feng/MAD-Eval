@@ -7,7 +7,7 @@ This is the official repository for our paper: [\[ACL 2025\] Sample-Efficient Hu
 ## 🔥 News
 
 - **2025.02** &nbsp;🎉🎉&nbsp; Our paper is accepted at **ACL 2025**!
-- **2024.04** &nbsp;📝📝&nbsp; We Release a preprint on [arXiv](https://arxiv.org/abs/2404.08008).
+- **2024.04** &nbsp;📝📝&nbsp; We release a preprint on [arXiv](https://arxiv.org/abs/2404.08008).
 
 
 ## 🗂️ Table of Contents
