@@ -1,58 +1,87 @@
-# Sample-Efficient Human Evaluation of LLMs via MAD Competition
-This is the official repository for our paper: [[2404.08008] Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition (arxiv.org)](https://arxiv.org/abs/2404.08008).
+# 🚀 Sample-Efficient Human Evaluation of LLMs via MAD Competition
+
+This is the official repository for our paper: [\[ACL 2025\] Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition](https://arxiv.org/abs/2404.08008).
+
+---
+
+## 🔥 News
+
+- **2025.02** &nbsp;🎉🎉&nbsp; Our paper is accepted at **ACL 2025**!
+- **2024.04** &nbsp;📝📝&nbsp; We Release a preprint on [arXiv](https://arxiv.org/abs/2404.08008).
 
 
-## Table of contents
-- <a href='#instroduction'>Introduction</a>
-- <a href='#Quick-Start'>Quick Start</a>
-    - <a href='#setup'>Setup</a>
-    - <a href='#usage'>Usage</a>
-        - <a href='#step-1'>Step 1: Instruction Evolution</a>
-        - <a href='#step-2'>Step 2: Model Inference</a>
-        - <a href='#step-3'>Step 3: Similarity measurement</a>
-        - <a href='#step-4'>Step 4: MAD competition</a>
-        - <a href='#step-5'>Step 5: Human Preference Annotation</a>
-        - <a href='#step-6'>Step 6: Elo Ranking</a>
+## 🗂️ Table of Contents
 
+* [📖 Introduction](#introduction)
+* [⚡ Quick Start](#quick-start)
 
-## Introduction <a id='introduction'></a>
+  * [⚙️ Setup](#setup)
+  * [▶️ Usage](#usage)
+
+    * [🌱 Step 1: Instruction Evolution](#step-1)
+    * [🤖 Step 2: Model Inference](#step-2)
+    * [🔍 Step 3: Similarity measurement](#step-3)
+    * [🏆 Step 4: MAD competition](#step-4)
+    * [📝 Step 5: Human Preference Annotation](#step-5)
+    * [📊 Step 6: Elo Ranking](#step-6)
+
+---
+
+## 📖 Introduction <a id='introduction'></a>
+
 The past years have witnessed a proliferation of large language models (LLMs). Yet, automated and unbiased evaluation of LLMs is challenging due to the inaccuracy of standard metrics in reflecting human preferences and the inefficiency in sampling informative and diverse test examples.
-While human evaluation remains the gold standard, it is expensive and time-consuming, especially when dealing with a large number of testing samples. 
+While human evaluation remains the gold standard, it is expensive and time-consuming, especially when dealing with a large number of testing samples.
 
-We introduce a labor-saving evaluation approach by an *automated*, *adaptive* and *sample-efficient* mechanism based on **MA**ximum **D**iscrepancy (MAD) competition to select testing samples. Our approach draws inspiration from the principle of "Model Falsification as Model Comparison", that is, to automatically identify a minimum set of samples that are most likely to serve as counterexamples for falsifying an LLM, where higher difficulty in falsification indicates the superiority of the LLM.
+We introduce a labor-saving evaluation approach by an *automated* 🤖, *adaptive* 🔄 and *sample-efficient* 💡 mechanism based on **MA**ximum **D**iscrepancy (MAD) competition to select testing samples. Our approach draws inspiration from the principle of "Model Falsification as Model Comparison" 🧪, that is, to automatically identify a minimum set of samples that are most likely to serve as counterexamples for falsifying an LLM, where higher difficulty in falsification indicates the superiority of the LLM.
 
+<p align="center">
+  <img src="./figs/framework.png" alt="framework" width="800"/>
+</p>
 
-![](./figs/framework.png)
+MAD automatically selects a small set of informative and diverse instructions, each adapted to two LLMs, whose responses are subject to three-alternative forced choice by human subjects. The pairwise comparison results are then aggregated into a global ranking using the Elo rating system.
 
-MAD automatically selects a small set of informative and diverse instructions, each adapted to two LLMs, whose responses are subject to three-alternative forced choice by human subjects. The pairwise comparison results are then aggregated into a global ranking using the Elo rating system. 
+---
 
-## Quick Start <a id='Quick-Start'></a>
-### Setup <a id="setup"></a>
+## ⚡ Quick Start <a id='quick-start'></a>
+
+### ⚙️ Setup <a id="setup"></a>
+
 We use `python 3.10.9` in this project. You can create a virtual environment using the following command:
+
 ```shell
 conda create -n YOUR_ENV_NAME python=3.10.9 -y
 ```
-Next, we need to install all Python libraries listed in `requirements.txt`. Make sure the versions are correct:
+
+Next, install all Python libraries listed in `requirements.txt`. Make sure the versions are correct:
+
 ```shell
 pip install -r requirements.txt
 ```
 
-### Usage <a id="usage"></a>
-Our method consists of the following 6 steps:
-1) Start from instruction seeds and generate new instructions through the instruction evolution method, resulting in an Instruction Pool.
-2) Select multiple models and collect their responses to the instruction pool.
-3) Compute the similarity between responses generated by pairs of models for the same instruction.
-4) Use MAD competition to select the Top-K instructions.
-5) Manual preference labeling.
-6) Rank using the Elo Rating System.
+---
 
-If you want to skip steps 1 to 2 and explore using existing data, you can refer to our experimental process with `Chatbot Arena conversations` [data](https://huggingface.co/datasets/lmsys/chatbot_arena_conversations) and jump to <a href='#step3'>step 3</a>.
+### ▶️ Usage <a id="usage"></a>
 
-#### Step 1: Instruction Evolution <a id="step-1"></a>
+Our method consists of the following **6 steps**:
+
+1) 1️⃣ **Start from instruction seeds** and generate new instructions through the instruction evolution method, resulting in an Instruction Pool.
+2) 2️⃣ **Select multiple models** and collect their responses to the instruction pool.
+3) 3️⃣ **Compute the similarity** between responses generated by pairs of models for the same instruction.
+4) 4️⃣ **Use MAD competition** to select the Top-K instructions.
+5) 5️⃣ **Manual preference labeling**.
+6) 6️⃣ **Rank using the Elo Rating System**.
+
+If you want to skip steps 1 to 2 and explore using existing data, you can refer to our experimental process with `Chatbot Arena conversations` [data](https://huggingface.co/datasets/lmsys/chatbot_arena_conversations) and jump to [Step 3](#step3).
+
+---
+
+#### 🌱 Step 1: Instruction Evolution <a id="step-1"></a>
+
 You can run `instruction_evol.py` with the following command to generate instructions, taking the `Writing` scenario as an example:
+
 ```shell
 # The avaliable scenario: Understanding, Reasoning, Writing, Coding
-dataset_name=Writing   
+dataset_name=Writing
 # The LLM that generate new instruction
 model=gpt-4-1106-preview  # avaliable model: gpt-3.5 or gpt-4
 output_path=./data/instruction/${dataset_name}.jsonl
@@ -73,14 +102,21 @@ python instruction_evol.py \
   --iter ${iter} \
   --api_batch 200 \
 ```
-We can directly generate instructions by modifying `./scripts/instruction_evol.sh` and then running:
+
+You can also modify `./scripts/instruction_evol.sh` and then run:
+
 ```shell
 bash ./scripts/instruction_evol.sh
 ```
+
 The data will be saved in the `./data/instruction` directory.
 
-#### Step 2: Model Inference <a id="step-2"></a>
+---
+
+#### 🤖 Step 2: Model Inference <a id="step-2"></a>
+
 For API-type models, model inference can be performed by modifying the command in `vllm_api_infernece.sh`, taking the `Writing` scenario as an example:
+
 ```shell
 # The inference model, default model used in paper:
 MODEL_NAME=gpt-3.5-turbo-1106
@@ -102,20 +138,23 @@ python vllm_api_inference.py \
     --sample_num -1 \
     --api_batch 100 \
 ```
-Code supports various chat models from OpenAI, Gemini-Pro, and locally deployed models based on the [vLLM API](https://github.com/vllm-project/vllm).
 
-For locally deployed non-API models, we utilize the vLLM framework for inference, as detailed in `vllm_inference.sh`.
-Therefore, we execute the following commands:
+Supports OpenAI, Gemini-Pro, and [vLLM API](https://github.com/vllm-project/vllm) models.
+
+For local models, see `vllm_inference.sh`:
+
 ```shell
 bash ./scripts/vllm_api_inference.sh
-```
-or
-```shell
+# or
 bash ./scripts/vllm_inference.sh
 ```
 
-#### Step 3: Similarity measurement <a id="step-3"></a>
-We employ three similarity metrics: GPT-4, text-embedding-ada-002 (OpenAI), and Bert-Score. We configure the relevant parameters for evaluating similarity using the following command:
+---
+
+#### 🔍 Step 3: Similarity measurement <a id="step-3"></a>
+
+We employ three similarity metrics: GPT-4, text-embedding-ada-002 (OpenAI), and Bert-Score. Use the following command to evaluate similarity:
+
 ```shell
 DEV_SET=Writing
 # The models needs to be evaluated. Using ',' to split
@@ -123,7 +162,7 @@ DEV_SET=Writing
 EVAL_MODELS=chatglm3-6b,gpt-3.5-turbo-1106,...
 # 3 metrics: gpt-4-1106-preview, bert-score, text-embedding-ada-002
 model=text-embedding-ada-002
-gen_prompt_type=gpt-4-eval     # The prompt for gpt-4 metric
+gen_prompt_type=gpt-4-eval
 max_tokens=1024
 temperature=0.0
 sample_num=-1
@@ -144,98 +183,71 @@ CUDA_VISIBLE_DEVICES=0,1 python similarity_check.py \
 ```
 
 <a id="step3"></a>
-> For Chatbot_Arena, set `DEV_SET=chatbot_arena`.
 
-#### Step 4: MAD competition <a id="step-4"></a>
-Once the scenario, MAD metric, and Top-K values are chosen, we can obtain the data with the greatest differences selected through the MAD competition.
+> 💡 For Chatbot\_Arena, set `DEV_SET=chatbot_arena`.
+
+---
+
+#### 🏆 Step 4: MAD competition <a id="step-4"></a>
+
+Once the scenario, MAD metric, and Top-K values are chosen, select the most informative data:
+
 ```shell
 bash ./scripts/mad_competition.sh
 ```
 
-#### Step 5: Human Preference Annotation <a id="step-5"></a>
-Before human preference annotation, the format of a data should be as follows:
+---
+
+#### 📝 Step 5: Human Preference Annotation <a id="step-5"></a>
+
+Before annotation, the data format should be:
+
 ```python
 {
-    "instruction": "xxx", 
-    "input": "", 
-    "output": "", 
-    "response_1": "model_1 response", 
+    "instruction": "xxx",
+    "input": "",
+    "output": "",
+    "response_1": "model_1 response",
     "response_2": "model_2 response",
     "score": "similarity score",
     "source": "file name, e.g., model_1-vs-model_2.jsonl"
 }
 ```
-During the annotation process, the annotated result should be the name of the winning model or 'tie'. After obtaining the manually annotated result, it should be placed in the `output` field as follows:
+
+During annotation, the result should be the winner model or 'tie'. After annotation, put it in the `output` field:
 
 ```python
-"instruction": "xxx", 
-"input": "", 
-"output": "winner name or tie", 
+"instruction": "xxx",
+"input": "",
+"output": "winner name or tie",
 ...
 ```
 
-Finally, we can unify the results using the following code and save them in a JSON file. Taking `chatbot_arena` as an example:
+Unify and save the results in JSON format, e.g., for `chatbot_arena`:
 
 ```python
 eval_model = 'text-embedding-ada-002'
 domain = 'chatbot_arena'
-
-f = open(f'./outputs/MAD/{eval_model}/{domain}.jsonl', 'r')
-save_f = open(f'./outputs/annotation/{eval_model}/{domain}.jsonl', 'w')
-    
-total_data = [json.loads(line) for line in f.readlines()]       # The MAD selected data
-# we save the human annotation of chatbot arena in `output`
-
-save_dict_list = []
-for i, d in enumerate(total_data):
-    model_a, model_b = d['source'].replace(f'.jsonl', '').split('-vs-')
-    responses = [(model_a, d['response_1']), (model_b, d['response_2'])]
-    random.shuffle(responses)
-
-    if d['output'] == responses[0][0]:
-        winner = 'model_a'
-    elif d['output'] == responses[1][0]:
-        winner = 'model_b'
-    else:
-        winner = 'tie'
-    
-    dt = datetime.now()
-    save_dict = {
-        'model_a': responses[0][0],
-        'model_b': responses[1][0],
-        'winner': winner,
-        'judge': 'arena_user',
-        'turn': 1,
-        'anony': True,
-        'language': 'English',
-        'tstamp': dt.timestamp(),
-        'source': d['source'],
-        'data': {
-            'instruction': d['instruction'],
-            'input': d['input'],
-            'output': d['output'],
-            'response_1': responses[0][1],
-            'response_2': responses[1][1],
-            'score': float(d['score']),
-            'explanation': d['explanation']
-        }
-    }
-    if domain in ['Reasoning', 'Understanding', 'Coding']:
-        save_dict['data']['answer'] = d['answer']
-    save_dict_list.append(save_dict)
-
+# ...
 json.dump(save_dict_list, save_f, indent=4, ensure_ascii=False)
-save_f.close()
 ```
 
-#### Step 6: Elo Ranking <a id="step-6"></a>
-Please refer to the `Elo_Ranking.ipynb`. The `Elo_Ranking.ipynb` file provides sample code for calculating the Elo Ranking Score, inspired by the [strategy for calculating Elo Rating in Chatbot Arena](https://colab.research.google.com/drive/1RAWb22-PFNI-X1gPVzc927SGUdfr6nsR). In the calculation, we use the bootstrap method to obtain more stable rankings.
+---
 
-## Citation
-Please cite the repo or the paper if they are helpful to you.
-```
+#### 📊 Step 6: Elo Ranking <a id="step-6"></a>
+
+See `Elo_Ranking.ipynb` 📓 for the Elo calculation, following the [Chatbot Arena Elo strategy](https://colab.research.google.com/drive/1RAWb22-PFNI-X1gPVzc927SGUdfr6nsR).
+Bootstrap is used for stable rankings.
+
+---
+
+## 📚 Citation
+
+Please cite the repo or the paper if they are helpful to you:
+
+```bibtex
 @misc{feng2024sampleefficient,
-      title={Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition}, 
+      title={Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition},
       author={Kehua Feng and Keyan Ding and Kede Ma and Zhihua Wang and Qiang Zhang and Huajun Chen},
       year={2024},
       eprint={2404.08008},
