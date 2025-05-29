@@ -1,6 +1,8 @@
-# 🚀 Sample-Efficient Human Evaluation of LLMs via MAD Competition
+<h1 align="center">
+🚀 Sample-Efficient Human Evaluation of LLMs via<br>Maximum Discrepancy Competition
+</h1>
 
-This is the official repository for our paper: [\[ACL 2025\] Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition](https://arxiv.org/abs/2404.08008).
+This is the official repository for our paper: 🚀[Sample-Efficient Human Evaluation of Large Language Models via Maximum Discrepancy Competition](https://arxiv.org/abs/2404.08008).
 
 ---
 
