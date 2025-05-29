@@ -8,7 +8,7 @@ This is the official repository for our paper: 🚀[Sample-Efficient Human Evalu
 
 ## 🔥 News
 
-- **2025.02** &nbsp;🎉🎉&nbsp; Our paper is accepted at **ACL 2025**!
+- **2025.05** &nbsp;🎉🎉&nbsp; Our paper is accepted at **ACL 2025**!
 - **2024.04** &nbsp;📝📝&nbsp; We release a preprint on [arXiv](https://arxiv.org/abs/2404.08008).
 
 
